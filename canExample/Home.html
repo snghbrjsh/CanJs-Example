@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="styles/bootstrap.min.css">
+<link rel="stylesheet" type="text/css" href="styles/main.css">
+</head>
+<body class="docs">
+
+<header>
+<nav class="container">
+<h3 class="text-left">Dummy POC</h3>	
+</nav>
+</header>
+
+<div class="container">
+<article class="content docs">
+<section class="description">
+	<div><label id="load" class="btn">Load Table</label></div>
+	<p id="booksDetailsDiv"></p>
+</section>
+</article>
+</div>
+<script type="text/mustache" id="bookstemplate">
+<div class="divClass">
+<form-control>	
+<form class="form-horizontal" role="form">
+	
+	<div class="form-group"> 
+		<label for="bookName" class="col-sm-3  control-label">Book Name :</label>
+		<div class="col-sm-3">
+		<input id="bookName" class="form-control"></input>
+		</div>
+		<label for="author" class="col-sm-3  control-label">Author :</label>
+		<div class="col-sm-3">
+		<input id="author" class="form-control"></input>
+		</div>
+	</div>
+	
+	<div class="form-group"> 
+		<label for="city" class="col-sm-3  control-label">City :</label>
+		<div class="col-sm-3">
+		<input id="city" class="form-control"></input>
+		</div>
+		<label for="pin" class="col-sm-3  control-label">PIN code :</label>
+		<div class="col-sm-3">
+		<input id="pin" class="form-control"></input>
+		</div>
+	</div>
+	
+	<div class="form-group"> 
+		<label for="country" class="col-sm-3  control-label">Country :</label>
+		<div class="col-sm-3">
+		<input id="country" class="form-control"></input>
+		</div>
+	</div>
+	
+	<div class="form-group">
+		<div class="col-sm-2 pull-right"> 
+		<input id="save" type="submit" value="submit" can-click='saveBook' class="btn btn-primary "></input>
+		
+		</div>
+	</div>
+		
+</form>
+</form-control>	
+
+</div>
+
+{{#if isBookListNotEmpty}}
+<div class="pull-right"><input placeholder="search" class="search" type="text"></input></div>
+<table id="mytable" class="table table-bordered table-striped">
+	<thead><tr><th>Book Id</th><th>Book Name</th><th>Author</th><th>Shop Address</th><th></th><th></th><th></th></tr></thead>
+	<tbody>
+	 {{#nbook}} 
+		<tr {{data 'book'}}>
+			<td data-title="Book Id">{{id}}</td>
+			{{#if isEdited}}
+				<td data-title="Book Name"><input class='gettingEdited' type='text' can-value='bookName'/></td>
+				<td data-title="Author"><input class='gettingEdited' type='text' can-value='author'/></td>
+			{{else}}
+				<td data-title="Book Name">{{bookName}}</td>
+				<td data-title="Author">{{author}}</td>  
+			{{/if}}
+			{{#if city}}
+				<td data-title="Address">{{city}} - {{pin}}, {{country}}</td>
+			{{else}}
+				<td data-title="Address">Not Available...</td>	
+			{{/city}}
+			<td><a can-click='edit'>edit</a></td>
+			<td><a class='save'>save</a></td>
+			<td><a class='destroy'>X</a></td>
+			
+		</tr>
+	 {{/nbook}} 
+	 </tbody>
+</table>
+<div class=".row">
+<next-prev paginate1=paginate></next-prev>
+</div>
+{{else}}
+	<div>No items to display..</div>
+{{/isBookListNotEmpty}}
+
+</script>
+<script type="text/mustache" id="tableWrapper">
+<mycantable></mycantable>
+</script>
+<footer>
+<nav class="container">
+</nav>
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+<script src="scripts/bootstrap.js" type="text/javascript"></script>
+<script src="http://canjs.com/release/latest/can.jquery.js"></script>
+<script src="http://canjs.com/release/latest/can.fixture.js"></script>
+<script src="http://canjs.com/release/latest/can.object.js"></script>
+<script src="scripts/controller.js" type="text/javascript"></script>
+<script src="scripts/application.js" type="text/javascript"></script>
+</footer>
+
+</body>
+</html>
